@@ -1,0 +1,15 @@
+#!/usr/bin/env ruby
+
+require_relative "../config/environment"
+
+# get the secret octo_token
+secrets = YAML::load(File.open(Dir.pwd + '/config/application.yml'))
+
+# take array of repo urls, collect names
+repos = ["https://github.com/SophieDeBenedetto/test-writer", "https://github.com/SophieDeBenedetto/test-writer-2"]
+repos = repos.map { |repo| Repo.new(repo) }
+
+# write content for each repo
+repos.each do |repo|
+  RepoWriter.new(repo, secrets).write_to_repo
+end
