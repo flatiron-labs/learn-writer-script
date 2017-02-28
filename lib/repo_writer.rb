@@ -1,4 +1,4 @@
-class RepoWriter
+class OpenSource
 
   VALID_LICENSE = File.open(File.expand_path(File.dirname(__FILE__)) + '/fixtures/LICENSE.md')
   VALID_CONTRIBUTING = File.open(File.expand_path(File.dirname(__FILE__)) + '/fixtures/CONTRIBUTING.md')
@@ -15,6 +15,15 @@ class RepoWriter
     @owner_name = repo.owner
     @repo_content = {contributing: {sha: " ", present: false}, license: {sha: " ", present: false}, dot_learn: {sha: " ", present: false}}
   end
+
+  def execute
+    check_for_file_presence
+    ["license", "dot_learn", "contributing"].each do |type|
+      find_or_create(type)
+    end
+  end
+
+  private
 
   def configure_client
     @client ||= Octokit::Client.new(:access_token => self.secrets["octo_token"])
@@ -57,10 +66,4 @@ class RepoWriter
     end
   end
 
-  def write_to_repo
-    check_for_file_presence
-    ["license", "dot_learn", "contributing"].each do |type|
-      find_or_create(type)
-    end
-  end
 end

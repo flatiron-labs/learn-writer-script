@@ -6,10 +6,13 @@ require_relative "../config/environment"
 secrets = YAML::load(File.open(Dir.pwd + '/config/application.yml'))
 
 # take array of repo urls, collect names
-repos = ["https://github.com/SophieDeBenedetto/test-writer", "https://github.com/SophieDeBenedetto/test-writer-2"]
+repos = ["https://github.com/talum/test-writer"]
 repos = repos.map { |repo| Repo.new(repo) }
 
-# write content for each repo
+# prompt for either open sourcer or toggle to readme
+# classify and execute
 repos.each do |repo|
-  RepoWriter.new(repo, secrets).write_to_repo
+  OpenSource.new(repo, secrets).execute
+  #ToggleToReadme.new(repo, secrets).execute
 end
+
