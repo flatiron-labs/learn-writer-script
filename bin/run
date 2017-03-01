@@ -12,7 +12,7 @@ repos = repos.map { |repo| Repo.new(repo) }
 # prompt for either open sourcer or toggle to readme
 # classify and execute
 repos.each do |repo|
-  OpenSource.new(repo, secrets).execute
-  #ToggleToReadme.new(repo, secrets).execute
+  #OpenSource.new(repo, secrets).execute
+  ToggleToReadme.new(repo, secrets).execute
 end
 
