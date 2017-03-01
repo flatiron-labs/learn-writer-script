@@ -5,14 +5,20 @@ require_relative "../config/environment"
 # get the secret octo_token
 secrets = YAML::load(File.open(Dir.pwd + '/config/application.yml'))
 
-# take array of repo urls, collect names
 repos = ["https://github.com/talum/test-writer"]
-repos = repos.map { |repo| Repo.new(repo) }
+#VALID STRATEGIES:
+# OpenSource
+# ToggleToReadme
+strategy = ARGV.first
 
+# parse CSV of repo urls
+csv_path = ARGV[1]
+
+#repos = CSV.read(csv_path)
+repos = repos.map { |repo| Repo.new(repo) }
 # prompt for either open sourcer or toggle to readme
 # classify and execute
 repos.each do |repo|
-  #OpenSource.new(repo, secrets).execute
-  ToggleToReadme.new(repo, secrets).execute
+  Object.const_get(strategy).new(repo, secrets).execute
 end
 
