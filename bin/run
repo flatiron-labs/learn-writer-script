@@ -5,12 +5,9 @@ require_relative "../config/environment"
 # get the secret octo_token
 secrets = YAML::load(File.open(Dir.pwd + '/config/application.yml'))
 
-# define strategies
-VALID_STRATEGIES = ["OpenSource", "ToggleToReadme"]
-
 #parse strategy from command line
 strategy = ARGV.first
-raise "Strategy undefined" unless VALID_STRATEGIES.include?(strategy)
+raise "Strategy undefined" unless BaseStrategy::VALID_STRATEGIES.include?(strategy)
 
 # parse CSV of repo urls
 csv_path = ARGV[1]

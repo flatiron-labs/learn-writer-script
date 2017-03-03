@@ -12,5 +12,6 @@ require 'csv'
 Dir["./lib/*.rb"].each {|f| require f}
 Dir["./fixtures/*.md"].each {|f| require f}
 Dir["./fixtures/*.yml"].each {|f| require f}
+Dir["./lib/strategies/*.rb"].each {|f| require f}
 
 
