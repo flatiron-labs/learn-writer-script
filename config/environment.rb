@@ -1,5 +1,7 @@
 require 'octokit'
 require 'pry'
+require 'yaml'
+require 'csv'
 
 # require_relative "../lib/repo.rb"
 # require_relative "../lib/repo_writer.rb"
@@ -10,5 +12,6 @@ require 'pry'
 Dir["./lib/*.rb"].each {|f| require f}
 Dir["./fixtures/*.md"].each {|f| require f}
 Dir["./fixtures/*.yml"].each {|f| require f}
+Dir["./lib/strategies/*.rb"].each {|f| require f}
 
 

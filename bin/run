@@ -5,11 +5,20 @@ require_relative "../config/environment"
 # get the secret octo_token
 secrets = YAML::load(File.open(Dir.pwd + '/config/application.yml'))
 
-# take array of repo urls, collect names
-repos = ["https://github.com/SophieDeBenedetto/test-writer", "https://github.com/SophieDeBenedetto/test-writer-2"]
-repos = repos.map { |repo| Repo.new(repo) }
+#parse strategy from command line
+strategy = ARGV.first
+raise "Strategy undefined" unless BaseStrategy::VALID_STRATEGIES.include?(strategy)
 
-# write content for each repo
-repos.each do |repo|
-  RepoWriter.new(repo, secrets).write_to_repo
+# parse CSV of repo urls
+csv_path = ARGV[1]
+raise "Must provide path to CSV" if csv_path.empty?
+
+repos = []
+CSV.foreach(csv_path) do |row|
+  repos << Repo.new(row.first)
 end
+
+repos.each do |repo|
+  Object.const_get(strategy).new(repo, secrets).execute
+end
+
