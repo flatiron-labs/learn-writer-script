@@ -1,5 +1,16 @@
 # Learn Curriculum Batch Update Script
 
+## Setup
+You'll need a [personal access token from GitHub](https://help.github.com/articles/creating-a-personal-access-token-for-the-command-line/) in order to use this script.
+
+We also recommend using the [`figaro`](https://github.com/laserlemon/figaro) gem to manage hiding your key.
+
+Your `config/application.yml` file should look something like this:
+
+```
+octo_token: INSERT_YOUR_TOKEN_HERE
+```
+
 ## Usage
 This script enables the batch updating of curriculum. To use, gather a list
 of repos you want to update and put them in a spreadsheet. Grab the
